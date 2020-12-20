@@ -2,53 +2,57 @@ const fs = require('fs');
 
 // Find couple
 function findCouple(data) {
-  let begin = 0;
-  let end = data.length - 1;
-
-  while (begin < end) {
-    const total = Number(data[begin]) + Number(data[end]);
-
-    if (total === 2020) {
-      console.log(`The first number is ${data[begin]}`);
-      console.log(`The second number is ${data[end]}`);
-      console.log(`Their multiply is ${data[begin] * data[end]}`);
-      break;
+  for (let i = 0; i <= data.length; i += 1) {
+    if (data[i] === 0) {
+      i += 1;
     }
+    const first = data[i];
 
-    end -= total > 2020 ? 1 : 0;
-    begin += total < 2020 ? 1 : 0;
+    const second = data.slice(i, data.length).filter((x) => x === 2020 - first);
+
+    if (data.filter((x) => x === 2020 - first).length === 1) {
+      console.log(`The first number is ${first}`);
+      console.log(`The second number is ${second}`);
+      console.log(`Their multiply is ${first * second}`);
+      return;
+    }
   }
 }
 
 // Find triplet
 function findTriplet(data) {
-  for (let i = 1; i < data.length; i += 1) {
-    const begin = i;
-    let mid = i + 1;
-    let end = data.length - 1;
+  for (let i = 0; i < data.length - 2; i += 1) {
+    if (data[i] === 0) {
+      i += 1;
+    }
 
-    while (mid < end) {
-      const total = Number(data[begin]) + Number(data[mid]) + Number(data[end]);
+    const first = data[i];
 
-      if (total === 2020) {
-        console.log(`The first number is ${data[begin]}`);
-        console.log(`The second number is ${data[mid]}`);
-        console.log(`The third number is ${data[end]}`);
-        console.log(`Their multiply is ${data[begin] * data[mid] * data[end]}`);
-        break;
+    for (let j = i + 1; j < data.length - 1; j += 1) {
+      const second = data[j];
+      const third = data
+        .slice(j, data.length)
+        .filter((x) => x === 2020 - first - second);
+
+      if (data.filter((x) => x === 2020 - first - second).length === 1) {
+        console.log(`The first number is ${first}`);
+        console.log(`The second number is ${second}`);
+        console.log(`The third number is ${third}`);
+        console.log(`Their multiply is ${first * second * third}`);
+        return;
       }
-
-      end -= total > 2020 ? 1 : 0;
-      mid += total < 2020 ? 1 : 0;
     }
   }
 }
 
 // Read file to lines
-const lines = fs.readFileSync('entries.txt', 'utf-8').split('\n');
+const lines = fs
+  .readFileSync('entries.txt', 'utf-8')
+  .split('\n')
+  .map((x) => Number(x));
 
 // Sort lines
-lines.sort();
+lines.sort((a, b) => a - b);
 
 // Find couple
 findCouple(lines);

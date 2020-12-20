@@ -11,64 +11,42 @@ Part 2: Find the triplet that have its total is 2020
 def find_couple(data_list):
     """
     Find the couple from the data list
-    O(n)
     """
 
-    begin = 0
-    end = len(data_list)-1
+    for i in range(len(data_list)-1):
+        first = data_list[i]
+        second = list(filter(lambda x: x==(2020-first), data_list[i:]))
 
-    while data_list[begin]<data_list[end]:
-        total = data_list[begin] + data_list[end]
-
-        if total==2020:
-            print("The first number is {}".format(data_list[begin]))
-            print("The second number is {}".format(data_list[end]))
-            print("Their multiply is {}".format(
-                data_list[begin] * data_list[end]
-            ))
-            break
-
-        if total>2020:
-            end-=1
-        else:
-            begin+=1
+        if len(second)==1:
+            print("The first number is {}".format(first))
+            print("The second number is {}".format(second[0]))
+            print("Their multiply is {}".format(first * int(second[0])))
+            return
 
 def find_triplet(data_list):
     """
     Find the triplet from the data list
-    O(n^2)
     """
 
     for i in range(len(data_list)-2):
-        begin = i
-        mid = i+1
-        end = len(data_list)-1
+        first = data_list[i]
 
-        while mid<end:
-            total = data_list[begin] + data_list[mid] + data_list[end]
+        for j in range(i+1, len(data_list)):
+            second = data_list[j]
+            third = list(filter(lambda x: x==(2020-first-second), data_list[j:]))
 
-            if total==2020:
-                print("The first number is {}".format(data_list[begin]))
-                print("The second number is {}".format(data_list[mid]))
-                print("The third number is {}".format(data_list[end]))
-                print("Their multiply is {}".format(
-                    data_list[begin] * data_list[mid] * data_list[end]
-                ))
-                break
-
-            if total>2020:
-                end-=1
-            else:
-                mid+=1
+            if len(third)==1:
+                print("The first number is {}".format(first))
+                print("The second number is {}".format(second))
+                print("The third number is {}".format(third[0]))
+                print("Their multiply is {}".format(first * second * int(third[0])))
+                return
 
 DataList = list()
 
 # Open file and input data
-file = open("entries.txt", "r")
-lines = file.readlines()
-
-for line in lines:
-    DataList.append(int(line.rstrip()))
+with open("entries.txt", "r") as file:
+    DataList = list(map(int, file.readlines()))
 
 # Sort the list
 DataList.sort()
