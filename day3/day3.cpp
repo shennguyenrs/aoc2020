@@ -4,7 +4,7 @@
 #include "day3.hpp"
 using namespace std;
 
-unsigned int countTree(unsigned int const xSlope, unsigned int const ySlope)
+unsigned int countTree(unsigned int xSlope, unsigned int ySlope)
 {
     vector<string>::iterator itr = raw.begin();
     unsigned int counter{0};
@@ -17,11 +17,8 @@ unsigned int countTree(unsigned int const xSlope, unsigned int const ySlope)
         unsigned int len = line.length();
 
         if('#'==line[x]) counter++;
-
         x = (x+xSlope)%len;
-
         advance(itr, ySlope);
-
         if(static_cast<unsigned long int>(distance(raw.begin(), itr))>raw.size()) break;
     }
 
@@ -33,8 +30,7 @@ int main()
     unsigned long int result{1};
 
     // Part one
-    cout << "----- Part One -----" << endl;
-    cout << countTree(3, 1) << endl;
+    cout << "Part one: " << countTree(3, 1) << endl;
     cout << endl;
 
     // Part two
@@ -44,8 +40,7 @@ int main()
     result *= countTree(7, 1);
     result *= countTree(1, 2);
 
-    cout << "----- Part Two -----" << endl;
-    cout << result << endl;
+    cout << "Part Two:" << result << endl;
 
     return 0;
 }
