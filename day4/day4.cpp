@@ -190,7 +190,7 @@ int main()
 
         while(getline(file, line))
         {
-            if("\0"!=line)
+            if('\r'!=line[0])
             {
                 stringstream ss(line);
                 string check;
@@ -205,12 +205,9 @@ int main()
                     PartTwo(key, value);
                 }
 
-                // Dont continue if reach the end of the file
-                if(!file.eof()) continue;
+                continue;
             }
             
-            cout << "here" << endl;
-
             // Part one
             if(getResult(&conOne)) countOne++;
 
