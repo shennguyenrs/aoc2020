@@ -46,19 +46,15 @@ static vector<string> colors
     "oth",
 };
 
-bool getResult(vector<pair<string, bool>> condition)
+bool getResult(vector<pair<string, bool>>* condition)
 {
     bool result{true};
 
     // Get the result for part one
-    for(auto itr=condition.begin(); itr!=condition.end(); itr++)
+    // and reset the condition key to false
+    for(auto itr=condition->begin(); itr!=condition->end(); itr++)
     {
         result &= itr->second;
-    }
-
-    // Reset the condition key to false
-    for(auto itr=condition.begin(); itr!=condition.end(); itr++)
-    {
         itr->second = false;
     }
 
@@ -212,12 +208,14 @@ int main()
                 // Dont continue if reach the end of the file
                 if(!file.eof()) continue;
             }
+            
+            cout << "here" << endl;
 
             // Part one
-            if(getResult(conOne)) countOne++;
+            if(getResult(&conOne)) countOne++;
 
             // Part two
-            if(getResult(conTwo)) countTwo++;
+            if(getResult(&conTwo)) countTwo++;
         }
     }
 
