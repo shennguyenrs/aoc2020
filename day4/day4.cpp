@@ -46,20 +46,20 @@ static vector<string> colors
     "oth",
 };
 
-bool getResult(vector<pair<string, bool>> *condition)
+bool getResult(vector<pair<string, bool>> condition)
 {
     bool result{true};
 
     // Get the result for part one
-    for(auto x: *condition)
+    for(auto itr=condition.begin(); itr!=condition.end(); itr++)
     {
-        result &= x.second;
+        result &= itr->second;
     }
 
     // Reset the condition key to false
-    for(auto x: *condition)
+    for(auto itr=condition.begin(); itr!=condition.end(); itr++)
     {
-        x.second = false;
+        itr->second = false;
     }
 
     return result;
@@ -71,9 +71,9 @@ bool getResult(vector<pair<string, bool>> *condition)
 
 void PartOne(string const key)
 {
-    for(auto x: conOne)
+    for(auto itr=conOne.begin(); itr!=conOne.end(); itr++)
     {
-        if(key==x.first) x.second=true;
+        if(key==itr->first) itr->second=true;
     }
 }
 
@@ -137,9 +137,9 @@ bool checkHcl(string value)
 
 bool checkEcl(string value)
 {
-    for(auto x: colors)
+    for(auto itr=colors.begin(); itr!=colors.end(); itr++)
     {
-        if(x==value) return true;
+        if(*itr==value) return true;
     }
 
     return false;
@@ -180,7 +180,7 @@ void PartTwo(string const key, string const value)
 int main()
 {
     ifstream file;
-    file.open("day4.txt");
+    file.open("entries.txt");
 
     unsigned int countOne{0};
     unsigned int countTwo{0};
@@ -214,10 +214,10 @@ int main()
             }
 
             // Part one
-            if(getResult(&conOne)) countOne++;
+            if(getResult(conOne)) countOne++;
 
             // Part two
-            if(getResult(&conTwo)) countTwo++;
+            if(getResult(conTwo)) countTwo++;
         }
     }
 
@@ -225,8 +225,8 @@ int main()
     file.close();
 
     // Print out result
-    cout << "The number of valid passport in part one: " << countOne << endl;
-    cout << "The number of valid passport in part two: " << countTwo << endl;
+    cout << "Part one: " << countOne << endl;
+    cout << "Part two: " << countTwo << endl;
 
     return 0;
 }
