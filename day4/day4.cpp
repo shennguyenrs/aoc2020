@@ -190,7 +190,7 @@ int main()
 
         while(getline(file, line))
         {
-            if('\r'!=line[0])
+            if('\r'!=line[0]) // Or line.length()==1
             {
                 stringstream ss(line);
                 string check;
