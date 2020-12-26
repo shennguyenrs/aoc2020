@@ -14,32 +14,29 @@ def part_two(item_key, item_value):
     """
 
     if item_key == conditions[0]:
-        return int(item_value) in (1920, 2002)
-
-    if item_key == conditions[1]:
-        return int(item_value) in (2010, 2020)
-
-    if item_key == conditions[2]:
-        return int(item_value) in (2020, 2030)
-
-    if item_key == conditions[3]:
+        result = int(item_value) in (1920, 2002)
+    elif item_key == conditions[1]:
+        result = int(item_value) in (2010, 2020)
+    elif item_key == conditions[2]:
+        result = int(item_value) in (2020, 2030)
+    elif item_key == conditions[3]:
         if item_value[-2:] == "cm":
-            return int(item_value[:-2]) in (150, 193)
-        if item_value[-2:] == "in":
-            return int(item_value[:-2]) in (59, 76)
-        return int(item_value) in (59, 76)
-
-    if item_key == conditions[4]:
-        return bool(re.match(r"^#([a-f]|[0-9]){6}$", item_value))
-
-    if item_key == conditions[5]:
+            result = int(item_value[:-2]) in (150, 193)
+        elif item_value[-2:] == "in":
+            result = int(item_value[:-2]) in (59, 76)
+        else:
+            result = int(item_value) in (59, 76)
+    elif item_key == conditions[4]:
+        result = bool(re.match(r"^#([a-f]|[0-9]){6}$", item_value))
+    elif item_key == conditions[5]:
         ecl = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-        return item_value in ecl
+        result = item_value in ecl
+    elif item_key == conditions[6]:
+        result = bool(re.match(r"[0-9]{9}$", item_value))
+    else:
+        result = False
 
-    if item_key == conditions[6]:
-        return bool(re.match(r"[0-9]{9}$", item_value))
-
-    return False
+    return result
 
 # Import data to list
 with open("entries.txt") as file:
