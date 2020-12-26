@@ -41,15 +41,15 @@ const partTwo = (key, value) => {
       if (unit === 'cm') {
         if (hgt >= 150 && hgt <= 193) return true;
         return false;
-      } else {
-        if (hgt >= 59 && hgt <= 76) return true;
-        return false;
       }
+
+      if (hgt >= 59 && hgt <= 76) return true;
+      return false;
     }
 
     // hcl
     case conditions[4]: {
-      const pattern = RegExp('^#([a-f]|[0-9]){6}$', 'g');
+      const pattern = /^#([a-f]|[0-9]){6}$/g;
       return pattern.test(value);
     }
 
@@ -61,7 +61,7 @@ const partTwo = (key, value) => {
 
     // pid
     case conditions[6]: {
-      const pattern = RegExp('[0-9]{9}$', 'g');
+      const pattern = /[0-9]{9}$/g;
       return pattern.test(value);
     }
 
@@ -75,12 +75,15 @@ lines.forEach((line) => {
   const lineLen = line.length;
   dataLen -= 1;
 
+  // console.log(`${lineLen}\t${line}`);
+
   if (lineLen !== 1) {
     line.split(' ').forEach((token) => {
       const [key, value] = token.split(':');
       fieldsOne += conditions.includes(key) ? 1 : 0;
       fieldsTwo += partTwo(key, value) ? 1 : 0;
-      // console.log(`${lineLen}\t${key}\t${value}`);
+      // console.log(`${lineLen}\t${key}\t${value}\t\t${partTwo(key, value)}`);
+      // console.log(`${lineLen}\t${key}\t${value}\t${partTwo(key, value)}\t${fieldsTwo}`);
     });
   }
 
