@@ -205,7 +205,7 @@ int main()
                     PartTwo(key, value);
                 }
 
-                continue;
+                if(!file.eof()) continue;
             }
             
             // Part one

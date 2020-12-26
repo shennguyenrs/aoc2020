@@ -13,26 +13,40 @@ def part_two(item_key, item_value):
     Check conditions with every fields of passports
     """
 
+    # byr
     if item_key == conditions[0]:
-        result = int(item_value) in (1920, 2002)
+        result = int(item_value) in range(1920, 2002+1)
+
+    # iyr
     elif item_key == conditions[1]:
-        result = int(item_value) in (2010, 2020)
+        result = int(item_value) in range(2010, 2020+1)
+
+    # eyr
     elif item_key == conditions[2]:
-        result = int(item_value) in (2020, 2030)
+        result = int(item_value) in range(2020, 2030+1)
+
+    # hgt
     elif item_key == conditions[3]:
         if item_value[-2:] == "cm":
-            result = int(item_value[:-2]) in (150, 193)
+            result = int(item_value[:-2]) in range(150, 193+1)
         elif item_value[-2:] == "in":
-            result = int(item_value[:-2]) in (59, 76)
+            result = int(item_value[:-2]) in range(59, 76+1)
         else:
-            result = int(item_value) in (59, 76)
+            result = int(item_value) in range(59, 76+1)
+
+    # hcl
     elif item_key == conditions[4]:
         result = bool(re.match(r"^#([a-f]|[0-9]){6}$", item_value))
+
+    # ecl
     elif item_key == conditions[5]:
         ecl = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
         result = item_value in ecl
+
+    # pid
     elif item_key == conditions[6]:
         result = bool(re.match(r"[0-9]{9}$", item_value))
+
     else:
         result = False
 
@@ -47,7 +61,11 @@ count_two = 0
 fields_one = 0
 fields_two = 0
 
-for line in data[:12]:
+length = len(data)
+
+for line in data:
+    length -= 1
+
     # Count fields when lines is not empty
     if len(line) != 0:
         split_line = re.split(r" ", line)
@@ -56,14 +74,11 @@ for line in data[:12]:
             key = re.split(r"\:", field)[0]
             value = re.split(r"\:", field)[1]
 
-            print("{}\t{}\t{}".format(key, value, part_two(key, value)))
-
             fields_one += 1 if key in conditions else 0
             fields_two += 1 if part_two(key, value) else 0
-            
-            print(fields_two)
 
-        continue
+        if length != 0:
+            continue
 
     # Count valid passports from count_fields
     # then reset the count_fields
