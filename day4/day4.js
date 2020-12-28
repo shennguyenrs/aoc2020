@@ -26,15 +26,13 @@ const fieldsValidator = {
     return false;
   },
   hcl: (value) => /^#([0-9a-f]){6}$/.test(value),
-  ecl: (value) => {
-    ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value);
-  },
-  pid: (value) => /[0-9]{9}$/.test(value),
+  ecl: (value) => /^amb$|^blu$|^brn$|^gry$|^grn$|^hzl$|^oth$/.test(value),
+  pid: (value) => /^[0-9]{9}$/.test(value),
   cid: () => false,
 };
 
 // Count Part One
-lines.slice(0, 13).forEach((line) => {
+lines.forEach((line) => {
   const lineLen = line.length;
   dataLen -= 1;
 
@@ -43,8 +41,6 @@ lines.slice(0, 13).forEach((line) => {
       const [key, value] = token.split(':');
       fieldsOne += conditions.includes(key) ? 1 : 0;
       fieldsTwo += fieldsValidator[key](value) ? 1 : 0;
-
-      console.log(`${key}\t${value}\t\t${fieldsTwo}`);
     });
   }
 
