@@ -14,8 +14,6 @@ int main()
 
     vector<float> vec;
 
-    float max{0};
-
     if(file.is_open())
     {
         string line;
@@ -69,11 +67,13 @@ int main()
     sort(vec.begin(), vec.end());
     int i;
 
-    for(i=0; i<vec.size(); i++)
+    cout << "Part One: " << *prev(vec.end()) << endl;
+
+    for(i=0; i< (int) vec.size(); i++)
     {
         float miss = vec[i+1] - vec[i];
         if(2==miss)
-            cout << vec[i];
+            cout << "Part Two (need to plus 1): " << vec[i] << endl;
     }
 
     return 0;
