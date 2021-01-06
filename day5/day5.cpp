@@ -71,9 +71,11 @@ int main()
 
     for(i=0; i< (int) vec.size(); i++)
     {
-        float miss = vec[i+1] - vec[i];
-        if(2==miss)
+       float miss = vec[i+1] - vec[i];
+        if(2==miss) {
             cout << "Part Two (need to plus 1): " << vec[i] << endl;
+            break;
+        }
     }
 
     return 0;
