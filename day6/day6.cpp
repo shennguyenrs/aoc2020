@@ -8,7 +8,10 @@
 
 using namespace std;
 
-int PartOne(ifstream file) {
+int PartOne(string filename) {
+    ifstream file;
+    file.open(filename);
+
     int result{0};
 
     if(file.is_open()){
@@ -25,6 +28,9 @@ int PartOne(ifstream file) {
                 }
 
                 if(!file.eof()) continue;
+                else {
+                    cout << "end of file" << endl;
+                }
             }
 
             // Calculate part one
@@ -32,11 +38,14 @@ int PartOne(ifstream file) {
             container.clear();
         }
     }
-    
+
+    file.close();
     return result;
 }
 
-int PartTwo(ifstream file) {
+int PartTwo(string filename) {
+    ifstream file;
+    file.open(filename);
     int result{0};
 
     if(file.is_open()){
@@ -78,14 +87,15 @@ int PartTwo(ifstream file) {
         }
     }
 
+    file.close();
     return result;
 }
 
 int main() {
-    ifstream file;
-    file.open("entries.txt");
+    string filename = "entries.txt";
 
-
+    cout << "Part one: " << PartOne(filename) << endl;
+    cout << "Part two: " << PartTwo(filename) << endl;
 
     return 0;
 }

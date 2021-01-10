@@ -1,7 +1,7 @@
 CC=g++
 LINKERFLAG=-lm
 
-MAIN := day5.cpp
+MAIN := day6.cpp
 
 main: $(MAIN)
 	@echo "Make excutable file..."
